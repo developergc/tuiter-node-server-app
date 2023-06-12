@@ -18,8 +18,7 @@ app.use(
     session({
       secret: "any string",
       resave: false,
-      saveUninitialized: false,
-      store: new session.MemoryStore(),
+      saveUninitialized: true,
     })
 );
 AuthController(app);
