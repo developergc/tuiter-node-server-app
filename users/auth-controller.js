@@ -14,13 +14,13 @@ const AuthController = (app) => {
     const newUser = usersDao.createUser(tmp);
     currentUserVar = newUser;
     // req.session["currentUser"] = tmp;
-    res.json(tmp);
+    res.json(newUser);
   };
 
-  const login = (req, res) => {
+  const login = async(req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = usersDao.findUserByCredentials(username, password);
+    const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
       currentUserVar = user;
       // req.session["currentUser"] = user;
