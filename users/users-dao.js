@@ -2,7 +2,6 @@ let users = [];
 
 export const findAllUsers = () => users;
 
-
 export const findUserById = (uid) => {
   const index = users.findIndex((u) => u._id === uid);
   if (index !== -1) return users[index];
