@@ -1,6 +1,5 @@
 let users = [];
 
-
 export const findAllUsers = () => users;
 
 
