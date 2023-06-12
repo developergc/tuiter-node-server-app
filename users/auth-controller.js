@@ -1,10 +1,10 @@
 import * as usersDao from "./users-dao.js";
 
-var currentUserVar;
+
 const AuthController = (app) => {
-  const register = async(req, res) => {
+  const register = (req, res) => {
     const username = req.body.username;
-    const user = await usersDao.findUserByUsername(username);
+    const user = usersDao.findUserByUsername(username);
     if (user) {
       res.sendStatus(409);
       return;
@@ -12,18 +12,16 @@ const AuthController = (app) => {
     const tmp=req.body;
     tmp._id = (new Date()).getTime() + '';
     const newUser = usersDao.createUser(tmp);
-    currentUserVar = newUser;
-    // req.session["currentUser"] = tmp;
-    res.json(newUser);
+    req.session["currentUser"] = tmp;
+    res.json(tmp);
   };
 
-  const login = async(req, res) => {
+  const login = (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = await usersDao.findUserByCredentials(username, password);
+    const user = usersDao.findUserByCredentials(username, password);
     if (user) {
-      currentUserVar = user;
-      // req.session["currentUser"] = user;
+      req.session["currentUser"] = user;
       res.json(user);
     } else {
       res.sendStatus(404);
@@ -31,7 +29,7 @@ const AuthController = (app) => {
   };
 
   const profile = (req, res) => {
-    const currentUser = currentUserVar;
+    const currentUser = req.session["currentUser"];
     if (!currentUser) {
       res.sendStatus(404);
       return;
