@@ -8,7 +8,7 @@ import AuthController from "./users/auth-controller.js";
 import mongoose from "mongoose";
 
 const app = express()
-app.set("trust proxy",1);
+//app.set("trust proxy",1);
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter'
 mongoose.connect(CONNECTION_STRING)
@@ -21,26 +21,26 @@ app.use(cors({
 )
 app.use(express.json());
 
-// app.use(
-//     session({
-//       secret: "any string",
-//       resave: false,
-//       saveUninitialized: true,
-//     })
-// );
-
 app.use(
     session({
       secret: "any string",
       resave: false,
-      proxy:true,
-      saveUninitialized: false,
-      cookie:{
-        sameSite: "none",
-        secure:true,
-      },
+      saveUninitialized: true,
     })
 );
+
+// app.use(
+//     session({
+//       secret: "any string",
+//       resave: false,
+//       proxy:true,
+//       saveUninitialized: false,
+//       cookie:{
+//         sameSite: "none",
+//         secure:true,
+//       },
+//     })
+// );
 
 AuthController(app);
 TuitsController(app);
