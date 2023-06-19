@@ -12,7 +12,7 @@ const app = express()
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter'
 mongoose.connect(CONNECTION_STRING)
 
-const allowedOrigins = ['https://a5--lambent-malasada-bfba84.netlify.app', 'http://localhost:3000'];
+const allowedOrigins = ['https://a6--lambent-malasada-bfba84.netlify.app', 'http://localhost:3000'];
 app.use(cors({
       credentials: true,
       origin: allowedOrigins,
